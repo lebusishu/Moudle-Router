@@ -17,10 +17,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2',{
-        exclude  module: 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'androidx.core:core-ktx:1.3.2', {
+        exclude module: 'org.jetbrains.kotlin:kotlin-stdlib'
     }
-    kapt project(':module-compiler')
+    kapt project(':module-compiler-kt')
+//    kapt project(':module-compiler-java')
     api project(':module-router')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'

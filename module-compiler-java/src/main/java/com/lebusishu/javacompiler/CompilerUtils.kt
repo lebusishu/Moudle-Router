@@ -1,4 +1,4 @@
-package com.lebusishu.compiler
+package com.lebusishu.javacompiler
 
 /**
  * Description : 提供一些工具方法
@@ -6,7 +6,6 @@ package com.lebusishu.compiler
  * Phone ：15233620521
  * Email：wangxiaohui1118@gmail.com
  * Person in charge : lebusishu
- * Leader：肖辉
  */
 class CompilerUtils {
     companion object{

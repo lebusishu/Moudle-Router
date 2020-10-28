@@ -3,7 +3,6 @@ package com.lebusishu.router
 import android.net.Uri
 import com.lebusishu.router.exceptions.RouterException
 import com.lebusishu.router.exceptions.RouterNotFoundException
-import com.lebusishu.router.exceptions.RouterParseException
 import com.lebusishu.router.exceptions.RouterRemoteException
 import com.lebusishu.router.interfaces.IMirror
 import com.lebusishu.router.utils.RouterReflectTool
@@ -22,7 +21,7 @@ import java.util.*
  */
 class Asker {
     companion object {
-        val MIRROR_PREFIX = "com.lebusishu.router.auto_"
+        val MIRROR_PREFIX = "com.lebusishu.router."+BuildConfig.AUTO_PREFIX
         val URL_PARAMS = "?params="
     }
 

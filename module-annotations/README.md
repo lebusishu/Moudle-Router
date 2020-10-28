@@ -1,0 +1,4 @@
+module-annotations
+该模块定义注解类
+RouterModule 作用于类，scheme&host需全局唯一，为模块的标识
+RouterPath 作用于方法，module内路径需唯一，代表着该模块内方法标识
