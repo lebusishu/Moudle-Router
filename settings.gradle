@@ -1,0 +1,4 @@
+include ':module-annotations'
+include ':module-compiler'
+include ':module-router'
+include ':app'

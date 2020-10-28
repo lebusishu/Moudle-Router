@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: Moudle-Router.module-annotations.module-annotations">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/module-annotations/build/libs/module-annotations.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

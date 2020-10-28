@@ -1,0 +1,17 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(':module-annotations')
+    //用于自动为 JAVA Processor 生成 META-INF 信息
+    kapt 'com.google.auto.service:auto-service:1.0-rc7'
+    implementation 'com.google.auto.service:auto-service:1.0-rc7'
+    //快速生成.kt文件的库
+//    implementation 'com.squareup:kotlinpoet:1.7.2'
+    //快速生成.java文件的库
+    implementation 'com.squareup:javapoet:1.13.0'
+//    implementation 'com.github.javaparser:javaparser-core:2.4.0'
+}
