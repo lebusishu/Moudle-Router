@@ -14,6 +14,7 @@ import kotlin.jvm.Throws
  * Person in charge : lebusishu
  * Leader：肖辉
  */
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ModuleDelegater {
     companion object {
         const val _METHOD = "_METHOD"
@@ -31,30 +32,38 @@ class ModuleDelegater {
                 ?: throw PathNotFoundException("path:$path not found")
             val args = mapping[path + _ARGS] as String
             val types = mapping[path + _TYPES] as String
-            if (args.isEmpty()) {
-                autoReturn(
-                    params,
-                    method,
-                    method.invoke(target)
-                )
-                return
+            try {
+                if (args.isEmpty()) {
+                    autoReturn(
+                        params,
+                        method,
+                        method.invoke(target)
+                    )
+                    return
+                }
+                if (!args.contains(",")) {
+                    val arr = arrayOfNulls<Any?>(1)
+                    arr[0] = RouterValueParser.parse(params.getValue(args), types)
+                    autoReturn(
+                        params,
+                        method,
+                        method.invoke(target, *arr)
+                    )
+                    return
+                }
+                val argNames = args.split(",")
+                val typeNames = types.split(",")
+                val arr = arrayOfNulls<Any?>(argNames.size)
+                argNames.forEachIndexed { index, s ->
+                    arr[index] =
+                        RouterValueParser.parse(params.getValue(s), typeNames[index])
+                }
+                autoReturn(params, method, method.invoke(target, *arr))
+                //此处异常是由于kotlin调用java反射invoke莫名空指针错误：method.invoke(target, *arr) must not be null
+            } catch (e: NullPointerException) {
+                e.printStackTrace()
             }
-            if (!args.contains(",")) {
-                autoReturn(
-                    params,
-                    method,
-                    method.invoke(RouterValueParser.parse(params.getValue(args), types))
-                )
-                return
-            }
-            val argNames = args.split(",")
-            val typeNames = types.split(",")
-            val arr = arrayOfNulls<Any?>(argNames.size)
-            argNames.forEachIndexed { index, s ->
-                arr[index] =
-                    RouterValueParser.parse(params.getValue(s), typeNames[index])
-            }
-            autoReturn(params, method, method.invoke(target, *arr))
+
         }
 
         private fun autoReturn(params: ParamsWrapper, method: Method, result: Any) {

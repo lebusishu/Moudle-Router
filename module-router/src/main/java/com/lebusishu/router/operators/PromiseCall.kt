@@ -13,6 +13,7 @@ import com.lebusishu.router.utils.RouterValueParser
  * Email：wangxiaohui1118@gmail.com
  * Person in charge : lebusishu
  */
+@Suppress("UNCHECKED_CAST")
 class PromiseCall<T, R>(source: CPromise<T>) : AbstractSourcePromise<T, R>(source) {
     lateinit var func: Func<T, R>;
 

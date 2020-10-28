@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch
  * Email：wangxiaohui1118@gmail.com
  * Person in charge : lebusishu
  */
+@Suppress("UNCHECKED_CAST", "CAST_NEVER_SUCCEEDS")
 open class CPromise<T> {
     private lateinit var target: Promise
 
@@ -31,7 +32,10 @@ open class CPromise<T> {
      * Start route.Empty callback
      */
     fun <R> call() {
-        call(null as Resolve<R>, null)
+        call(object : Resolve<Any> {
+            override fun call(result: Any?) {
+            }
+        }, null)
     }
 
     /**
@@ -49,8 +53,11 @@ open class CPromise<T> {
      *
      * @param reject Exception callback
      */
-    fun <R> call(reject: Reject) {
-        call(null as Resolve<R>, reject)
+    fun call(reject: Reject) {
+        call(object : Resolve<Any> {
+            override fun call(result: Any?) {
+            }
+        }, reject)
     }
 
     /**
@@ -60,7 +67,7 @@ open class CPromise<T> {
      * @param reject  Exception callback
      * @param <R>     the output type
      */
-    fun <R> call(resolve: Resolve<R>?, reject: Reject?) {
+    fun <R> call(resolve: Resolve<R>, reject: Reject?) {
         target.call(resolve as Resolve<Any>, reject)
     }
 

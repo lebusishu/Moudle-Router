@@ -149,7 +149,7 @@ class Promise {
     }
 
     fun setThreadFlag(flag: Int) {
-        this.flagMark != flag
+        this.flagMark = this.flagMark or flag
     }
 
     fun getTag(): String {

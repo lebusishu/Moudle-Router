@@ -14,6 +14,7 @@ import java.lang.reflect.Array
  * Email：wangxiaohui1118@gmail.com
  * Person in charge : lebusishu
  */
+@Suppress("UNCHECKED_CAST")
 class RouterValueParser {
     companion object {
         @Throws(RouterParseException::class)

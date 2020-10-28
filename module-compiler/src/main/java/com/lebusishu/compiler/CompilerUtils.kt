@@ -10,6 +10,9 @@ package com.lebusishu.compiler
  */
 class CompilerUtils {
     companion object{
+        /**
+         * get class full type :com.lebusishu.router.VPromise.class
+         */
         fun getFullTypesString(types:String):String{
             if (types.contains(",")){
                val arr=types.split(",")
@@ -27,7 +30,7 @@ class CompilerUtils {
                 }
                 return builder.substring(0,builder.length-1)
             }else{
-                return removeGeneric(types)+",class"
+                return removeGeneric(types)+".class"
             }
         }
        private fun removeGeneric(type:String):String{
