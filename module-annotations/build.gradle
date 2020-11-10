@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply from: rootProject.file('gradle/push-jcenter.gradle')
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
