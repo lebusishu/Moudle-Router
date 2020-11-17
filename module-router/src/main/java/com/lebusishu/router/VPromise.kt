@@ -22,7 +22,7 @@ class VPromise {
      * @param result The result of whatever you want.
      * @param <R>    the output type
      */
-    fun resolve(any: Any) {
+    fun resolve(any: Any?) {
         target.resolve(any)
     }
 

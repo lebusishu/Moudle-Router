@@ -1,12 +1,12 @@
 package com.lebusishu.router
 
 import android.os.Looper
+import android.util.Log
 import com.lebusishu.router.exceptions.RouterParseException
 import com.lebusishu.router.utils.RouterReflectTool
 import com.lebusishu.router.utils.RouterUtils
 import com.lebusishu.router.utils.RouterValueParser
 import kotlin.Exception
-import kotlin.properties.Delegates
 
 /**
  * Description : Manage router send and receive.
@@ -15,43 +15,40 @@ import kotlin.properties.Delegates
  * Email：wangxiaohui1118@gmail.com
  * Person in charge : lebusishu
  */
-class Promise {
+class Promise(private val asker: Asker) {
     companion object {
         /**
          * Call on main thread.{@link Promise#call(Resolve, Reject)}
          */
-        val FLAG_CALL_MAIN = 1 shl 1
+        const val FLAG_CALL_MAIN = 1 shl 1
 
         /**
          * Call on thread.{@link Promise#call(Resolve, Reject)}
          */
-        val FLAG_CALL_THREAD = 1 shl 2
+        const val FLAG_CALL_THREAD = 1 shl 2
 
         /**
          * return on main thread.
          *
          * {@link Promise#resolve(Object)} {@link Promise#reject(Exception)}}
          */
-        val FLAG_RETURN_MIAN = 1 shl 3
+        const val FLAG_RETURN_MAIN = 1 shl 3
 
         /**
          * return on thread.
          *
          * {@link Promise#resolve(Object)} {@link Promise#reject(Exception)}}
          */
-        val FLAG_RETURN_THREAD = 1 shl 4
+        const val FLAG_RETURN_THREAD = 1 shl 4
     }
 
     private var tagKey: String?=null
-    private val promiseForReturn: VPromise
+    private val promiseForReturn: VPromise = VPromise(this)
     private var flagMark = 0
-    private val asker: Asker
     private var resolve: Resolve<Any>? = null
     private var reject: Reject? = null
 
-    constructor(asker: Asker) {
-        this.asker = asker
-        this.promiseForReturn = VPromise(this)
+    init {
         asker.setPromise(this)
     }
 
@@ -77,8 +74,8 @@ class Promise {
         }
     }
 
-    fun resolve(result: Any) {
-        if (result == Void::class.java) {
+    fun resolve(result: Any?) {
+        if (result == Unit) {
             return
         }
         if (resolve == null) {
@@ -94,7 +91,7 @@ class Promise {
         }
         val expectedResult: Any? = expected
         //call on main thread
-        if ((flagMark and FLAG_RETURN_MIAN) != 0 && !isMainThread()) {
+        if ((flagMark and FLAG_RETURN_MAIN) != 0 && !isMainThread()) {
             RouterUtils.HANDLER.post {
                 try {
                     resolve!!.call(expectedResult)
@@ -127,7 +124,7 @@ class Promise {
             return
         }
         //call on main thread
-        if ((flagMark and FLAG_RETURN_MIAN) != 0 && !isMainThread()) {
+        if ((flagMark and FLAG_RETURN_MAIN) != 0 && !isMainThread()) {
             RouterUtils.HANDLER.post {
                 reject!!.call(e)
             }

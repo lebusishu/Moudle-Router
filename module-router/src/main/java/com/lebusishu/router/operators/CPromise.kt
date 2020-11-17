@@ -179,7 +179,7 @@ open class CPromise<T> {
      * @return {@link CPromise}
      */
     fun returnOnMainThread(): CPromise<T> {
-        target.setThreadFlag(Promise.FLAG_RETURN_MIAN)
+        target.setThreadFlag(Promise.FLAG_RETURN_MAIN)
         return this
     }
 

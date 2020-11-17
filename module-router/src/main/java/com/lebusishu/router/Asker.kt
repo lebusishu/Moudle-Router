@@ -21,8 +21,8 @@ import java.util.*
  */
 class Asker {
     companion object {
-        val MIRROR_PREFIX = "com.lebusishu.router."+BuildConfig.AUTO_PREFIX
-        val URL_PARAMS = "?params="
+        const val MIRROR_PREFIX = "com.lebusishu.router."+BuildConfig.AUTO_PREFIX
+        const val URL_PARAMS = "?params="
     }
 
     private lateinit var promise: Promise

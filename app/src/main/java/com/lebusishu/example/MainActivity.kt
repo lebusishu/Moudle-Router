@@ -2,6 +2,7 @@ package com.lebusishu.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.lebusishu.example.R
@@ -102,8 +103,8 @@ class MainActivity : AppCompatActivity() {
         //获取返回值
         tv6.text = "android://minor/get/getData"
         tv6.setOnClickListener {
-            ModuleRouter.open<Any>(tv6.text.toString()).call(object : Resolve<TestBean> {
-                override fun call(result: TestBean?) {
+            ModuleRouter.open<Any>(tv6.text.toString()).call(object : Resolve<Any> {
+                override fun call(result: Any?) {
                     tv.text = result.toString()
                 }
             }, object : Reject {
@@ -163,8 +164,8 @@ class MainActivity : AppCompatActivity() {
         //综合调用
         tv10.text = "android://minor/complex/minorActivity?params={param=complexActivity}"
         tv10.setOnClickListener {
-            ModuleRouter.open<Any>(tv10.text.toString(),map10).call(object : Resolve<String> {
-                override fun call(result: String?) {
+            ModuleRouter.open<Any>(tv10.text.toString(),map10).call(object : Resolve<Any?> {
+                override fun call(result: Any?) {
                     tv.text = result.toString()
                 }
             }, object : Reject {

@@ -3,6 +3,7 @@ package com.lebusishu.example
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.lebusishu.annotations.RouterModule
 import com.lebusishu.annotations.RouterPath
 import com.lebusishu.router.VPromise
@@ -65,13 +66,13 @@ class MinorModule : IRouter {
     }
 
     @RouterPath("/get/getData")
-    fun openGetData(promise: VPromise) {
-        promise.resolve(TestBean())
+    fun openGetData(promise: VPromise){
+        promise.resolve("openGetData"+TestBean())
     }
 
     @RouterPath("/get/getValue")
     fun openGetValue(promise: VPromise) {
-        promise.resolve(TestBean())
+        promise.resolve("openGetValue"+TestBean())
     }
 
     @RouterPath("/thread/getThread")
@@ -81,7 +82,7 @@ class MinorModule : IRouter {
 
     @RouterPath("/autoReturn")
     fun openAutoReturn(promise: VPromise): String {
-        return "auto return:${TestBean().toString()}"
+        return "auto return:${TestBean()}"
     }
     @RouterPath("/complex/minorActivity")
     fun openComplexParams(
