@@ -103,8 +103,8 @@ class MainActivity : AppCompatActivity() {
         //获取返回值
         tv6.text = "android://minor/get/getData"
         tv6.setOnClickListener {
-            ModuleRouter.open<Any>(tv6.text.toString()).call(object : Resolve<Any> {
-                override fun call(result: Any?) {
+            ModuleRouter.open<Any>(tv6.text.toString()).call(object : Resolve<TestBean> {
+                override fun call(result: TestBean?) {
                     tv.text = result.toString()
                 }
             }, object : Reject {
@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity() {
         //阻塞获取值
         tv7.text = "android://minor/get/getValue"
         tv7.setOnClickListener {
-            val value = ModuleRouter.open<Any>(tv7.text.toString()).getValue<Any>()
-            tv.text = value?.toString() ?: "value is null"
+            val value = ModuleRouter.open<Any>(tv7.text.toString()).getValue<String>()
+            tv.text = value ?: "value is null"
         }
         //线程切换
         tv8.text = "android://minor/thread/getThread"

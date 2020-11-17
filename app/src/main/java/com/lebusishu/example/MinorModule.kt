@@ -67,12 +67,12 @@ class MinorModule : IRouter {
 
     @RouterPath("/get/getData")
     fun openGetData(promise: VPromise){
-        promise.resolve("openGetData"+TestBean())
+        promise.resolve(TestBean())
     }
 
     @RouterPath("/get/getValue")
     fun openGetValue(promise: VPromise) {
-        promise.resolve("openGetValue"+TestBean())
+        promise.resolve(TestBean())
     }
 
     @RouterPath("/thread/getThread")
